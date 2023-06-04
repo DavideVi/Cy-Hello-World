@@ -7,11 +7,12 @@ def lambda_handler(event, context):
             'body': 'Method not allowed'
         }
     
-    if event['headers']['Content-Type'] != 'application/html':
-        return {
-            'statusCode': 406,
-            'body': 'Only HTML is supported'
-        }
+    if 'headers' in event and 'Content-Type' in event['headers']:
+        if event['headers']['Content-Type'] != 'application/html':
+            return {
+                'statusCode': 406,
+                'body': 'Only HTML is supported'
+            }
 
     response = {
         'statusCode': 200,
