@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 #
 # I would have used a Makefile, but the AWS CLI docker image does not come with
 # `make`, which defeats the purpose of incoveniencing ourselves with `make` 
@@ -9,9 +11,7 @@
 function test() {
     cd ./function
     PYTHON_VERSION=$(cat .python-version)
-    set -e
     python --version | grep $PYTHON_VERSION > /dev/null || echo "Python $PYTHON_VERSION not found"
-    set +e
     python test_function.py
     cd ..    
 }
