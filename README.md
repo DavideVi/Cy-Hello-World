@@ -30,3 +30,12 @@ Deploy the Lambda:
 # or 
 ./cli d
 ```
+
+# Insights
+
+## Lambda
+
+I used PyEnv to peg the version to 3.10 (latest Lambda supported runtime).
+
+I normally use Poetry for managing the local package but thought it would be 
+overkill in this case, I've just manually written the `requirements.txt` file.
