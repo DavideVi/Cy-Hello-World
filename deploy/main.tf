@@ -85,6 +85,11 @@ resource "aws_apigatewayv2_route" "hello_world_default_route" {
   target = "integrations/${aws_apigatewayv2_integration.hello_world_integration.id}"
 }
 
+resource "aws_cloudwatch_log_group" "hello_world_log_group" {
+  name = "/aws/apigateway/${aws_apigatewayv2_api.hello_world_api.id}"
+  retention_in_days = 7
+}
+
 resource "aws_apigatewayv2_stage" "hello_world_stage" {
   api_id = aws_apigatewayv2_api.hello_world_api.id
   name = var.branch
@@ -95,6 +100,21 @@ resource "aws_apigatewayv2_stage" "hello_world_stage" {
     logging_level = "INFO"
     throttling_burst_limit = 5000
     throttling_rate_limit = 10000
+  }
+
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.hello_world_log_group.arn
+    format = jsonencode({
+      requestId = "$context.requestId"
+      ip = "$context.identity.sourceIp"
+      requestTime = "$context.requestTime"
+      httpMethod = "$context.httpMethod"
+      routeKey = "$context.routeKey"
+      status = "$context.status"
+      protocol = "$context.protocol"
+      responseLength = "$context.responseLength"
+      integrationErrorMessage = "$context.integrationErrorMessage"
+    })
   }
 }
 
