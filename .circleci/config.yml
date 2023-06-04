@@ -32,12 +32,12 @@ jobs:
 workflows:
   default:
     jobs:
-      # - test_unit
+      - test_unit
       - deploy:
           context:
             AWS
-          # requires:
-          #   - test_unit
+          requires:
+            - test_unit
       - test_system:
           requires:
             - deploy
