@@ -16,13 +16,13 @@ jobs:
       - checkout
       - run: chmod +x cli
       - run: ./cli deploy
-    context:
-      - AWS
 
 workflows:
   deploy:
     jobs:
-      - deploy
+      - deploy:
+          context:
+            AWS
   # test-and-deploy:
   #   jobs:
   #     - test
