@@ -61,3 +61,8 @@ Currently it can return both HTML and JSON depending on the specified content ty
 I used TfEnv to peg the version to 1.4.6 (latest version at the time of writing).
 
 I've added the support for CloudWatch in addition to the API gateway because I had to try to figure out why I was getting HTTP 429s (too many requests); For some reason the rate limits were set to `0` and I interpreted that as unlimited. Took me an entire hour to figure out. Once I figured it out, I thought might as well keep the extras there. 
+
+# Shameless Plug
+
+I have written extensively about many of my projects over here: <a href="https://davidevitelaru.com/cv/index.html">https://davidevitelaru.com/</a> (There's even pictures!)
+
