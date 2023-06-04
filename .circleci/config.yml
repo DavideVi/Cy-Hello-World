@@ -19,16 +19,15 @@ jobs:
       - persist_to_workspace:
           root: deploy
           paths:
-            - ./deploy/api_url
+            - api_url
 
   test_system:
     docker: 
       - image: busybox:1.36
     steps:
-      - checkout
       - attach_workspace:
-          at: ./deploy/api_url
-      - run: wget $(cat ./deploy/api_url)
+          at: /tmp/deploy
+      - run: wget $(cat /tmp/deploy/api_url)
 
 workflows:
   default:
