@@ -7,7 +7,13 @@
 # 
 
 function test() {
-    echo "Running tests..."
+    cd ./function
+    PYTHON_VERSION=$(cat .python-version)
+    set -e
+    python --version | grep $PYTHON_VERSION > /dev/null || echo "Python $PYTHON_VERSION not found"
+    set +e
+    python test_function.py
+    cd ..    
 }
 
 function deploy() {
