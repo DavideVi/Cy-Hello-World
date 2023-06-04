@@ -10,9 +10,11 @@ Versions utilised:
 - Python 3.10 (latest Lambda supported runtime)
 - Terraform 1.4.6 (latest version at the time of writing)
 
-I normally create a top-level CLI that automates the ops in the project.
+I've recently started creating top-level CLIs that automate the ops in projects; Similar to a Makefile but with fewer limitations.
 
-For the sake of simplicity I wanted to stick to the traditional `Makefile` which is generally preinstalled, but the `terraform` image does not actually with it, so that's all the reason I needed to use the CLI approach. (Naturally, I could have used a custom image but then that adds maintenance overhead).
+I did want to stick to a Makefile here for the sake of simplicity, but the `terraform` image did not actually ship with it, so I've decided to just stick with the CLI approach. (Naturally, I could have used a custom image but then that adds maintenance overhead).
+
+I hope it does not come accross as opinionated. 
 
 Make the CLI executable first:
 ```bash
@@ -41,14 +43,18 @@ Deploy the Lambda:
 ./cli d
 ```
 
-# Insights
+# Notes
 
-## Lambda
+## Lambda Function
 
 I used PyEnv to peg the version to 3.10 (latest Lambda supported runtime).
 
 I normally use Poetry for managing the local package but thought it would be 
-overkill in this case, I've just manually written the `requirements.txt` file.
+overkill in this case, I was planning on manually writing the `requirements.txt` file but
+it turned out that no additional packages were actually required. 
+
+For some reason my mind initially conflated HTTP with HTML so I initially made it only support HTML; 
+Currently it can return both HTML and JSON depending on the specified content type. 
 
 ## Terraform
 

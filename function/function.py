@@ -1,3 +1,4 @@
+import json 
 
 ALLOWED_CONTENT_TYPES = ['application/html', 'application/json']
 
@@ -27,7 +28,7 @@ def lambda_handler(event, context):
         case 'application/html':
             body = 'Hello World'
         case 'application/json':
-            body = { 'message': 'Hello World' }
+            body = json.dumps({ 'message': 'Hello World' })
 
     return {
         'statusCode': 200,

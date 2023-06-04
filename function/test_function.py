@@ -1,4 +1,5 @@
 import unittest
+import json
 
 from function import lambda_handler
 
@@ -36,7 +37,7 @@ class TestLambdaFunction(unittest.TestCase):
         )
 
         self.assertEqual(resp['statusCode'], 200)
-        self.assertEqual(resp['body'], { 'message': 'Hello World' }) 
+        self.assertEqual(resp['body'], json.dumps({ 'message': 'Hello World' })) 
 
     def test_error_for_disallowed_content_tpes(self):
         resp = lambda_handler(
