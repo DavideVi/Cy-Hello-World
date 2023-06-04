@@ -8,11 +8,11 @@ I normally use <a href="https://gitlab.com/davidevi/">GitLab</a> instead of GitH
 
 Versions utilised:
 - Python 3.10 (latest Lambda supported runtime)
-- Terraform 
+- Terraform 1.4.6 (latest version at the time of writing)
 
 I normally create a top-level CLI that automates the ops in the project.
 
-For the sake of simplicity I wanted to stick to the traditional `Makefile`, but the `aws-cli` image does not come with `make` preinstalled so that's all the reason I needed to use the CLI approach. (Naturally, I could have used a custom image but then that adds maintenance overhead).
+For the sake of simplicity I wanted to stick to the traditional `Makefile` which is generally preinstalled, but the `terraform` image does not actually with it, so that's all the reason I needed to use the CLI approach. (Naturally, I could have used a custom image but then that adds maintenance overhead).
 
 Make the CLI executable first:
 ```bash

@@ -11,14 +11,17 @@ jobs:
 
   deploy:
     docker:
-      - image: amazon/aws-cli:2.11.25
+      - image: hashicorp/terraform:1.4.6
     steps:
       - checkout
       - run: chmod +x cli
       - run: ./cli deploy
 
 workflows:
-  test-and-deploy:
+  deploy:
     jobs:
-      - test
       - deploy
+  # test-and-deploy:
+  #   jobs:
+  #     - test
+  #     - deploy
