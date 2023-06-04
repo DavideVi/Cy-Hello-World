@@ -2,7 +2,7 @@
 
 This is a simple AWS Lambda function that will return a "Hello World" message.
 
-I normally use <a href="https://gitlab.com/davidevi/">GitLab</a> instead of GitHub with CircleCI but decided that it would be wiser to mirror your stack for this project (I found it from StackShare.io).
+I normally use <a href="https://gitlab.com/davidevi/">GitLab</a> instead of GitHub with CircleCI but decided that it would be wiser to mirror your stack for this project (I found it on StackShare.io).
 
 ## Set Up
 
