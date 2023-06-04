@@ -21,7 +21,7 @@ class TestLambdaFunction(unittest.TestCase):
         self.assertEqual(resp['statusCode'], 200)
         self.assertEqual(resp['body'], 'Hello World') 
 
-    def test_error_for_non_http(self):
+    def test_success_for_json_get(self):
         resp = lambda_handler(
             event={
                 'httpMethod': 'GET',
@@ -35,8 +35,25 @@ class TestLambdaFunction(unittest.TestCase):
             context=None
         )
 
+        self.assertEqual(resp['statusCode'], 200)
+        self.assertEqual(resp['body'], { 'message': 'Hello World' }) 
+
+    def test_error_for_disallowed_content_tpes(self):
+        resp = lambda_handler(
+            event={
+                'httpMethod': 'GET',
+                'path': '/',
+                'headers': {
+                    'Content-Type': 'multipart/form-data; boundary=something',
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
+                },
+                'body': None,
+            }, 
+            context=None
+        )
+
         self.assertEqual(resp['statusCode'], 406)
-        self.assertEqual(resp['body'], 'Only HTML is supported') 
+        self.assertEqual(resp['body'], 'Unsupported content type') 
 
     def test_error_for_non_get(self):
         resp = lambda_handler(
