@@ -37,4 +37,8 @@ workflows:
       - deploy:
           context:
             AWS
-      - test_system
+          # requires:
+          #   - test_unit
+      - test_system:
+          requires:
+            - deploy
