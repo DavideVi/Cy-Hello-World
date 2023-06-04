@@ -40,6 +40,10 @@ function deploy() {
         -backend-config="dynamodb_table=$DYNAMODB_TABLE" \
         -backend-config="key=$STATE_KEY" 
 
+    # Set workspace to the current branch
+    export TF_VAR_branch=$(git rev-parse --abbrev-ref HEAD)
+    terraform workspace new $TF_VAR_branch || terraform workspace select $TF_VAR_branch
+
     # Deploy the function
     AUTO_APPROVE=''
     if [ -n "$CIRCLECI" ]; then
