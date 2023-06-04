@@ -1,0 +1,4 @@
+# More specific gitignore files can be found
+# in each folder
+
+.env

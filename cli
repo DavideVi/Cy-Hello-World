@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -e
+set -ex
+
 
 #
 # I would have used a Makefile, but the AWS CLI docker image does not come with
@@ -10,14 +11,38 @@ set -e
 
 function test() {
     cd ./function
+
     PYTHON_VERSION=$(cat .python-version)
     python --version | grep $PYTHON_VERSION > /dev/null || echo "Python $PYTHON_VERSION not found"
+
     python test_function.py
+
     cd ..    
 }
 
 function deploy() {
-    echo "Deploying..."
+
+    # Enforce version
+    cd ./deploy
+    TERRAFORM_VERSION=$(cat .terraform-version)
+    terraform --version | grep $TERRAFORM_VERSION > /dev/null || echo "Python $TERRAFORM_VERSION not found"
+    cd ..
+
+    # Add function.py to a zip file
+    cd ./function
+    zip -r ../deploy/function.zip function.py
+    cd ..
+
+    # Deploy the function
+    cd ./deploy
+    terraform init \
+        -backend-config="access_key=$AWS_ACCESS_KEY_ID" \
+        -backend-config="secret_key=$AWS_SECRET_ACCESS_KEY" \
+        -backend-config="region=$AWS_REGION" \
+        -backend-config="bucket=$S3_BUCKET" \
+        -backend-config="dynamodb_table=$DYNAMODB_TABLE" \
+        -backend-config="key=$STATE_KEY" 
+    cd ..
 }
 
 # If first argument is not set, print help and exit
@@ -31,6 +56,11 @@ if [ "$1" == "t" ]; then
     set -- "test"
 elif [ "$1" == "d" ]; then
     set -- "deploy"
+fi
+
+# Source the .env file if it exists
+if [ -f .env ]; then
+    source .env
 fi
 
 "$1"
