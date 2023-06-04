@@ -64,5 +64,5 @@ I've added the support for CloudWatch in addition to the API gateway because I h
 
 # Shameless Plug
 
-I have written extensively about many of my projects over here: <a href="https://davidevitelaru.com/cv/index.html">https://davidevitelaru.com/</a> (There's even pictures!)
+I have written extensively about many of my projects over here: <a href="https://davidevitelaru.com/cv/index.html">Davide's Website</a> (There's even pictures!)
 
