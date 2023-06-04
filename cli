@@ -52,6 +52,8 @@ function deploy() {
 
     terraform apply $AUTO_APPROVE
 
+    terraform output -raw api_url > api_url
+
     cd ..
 }
 
