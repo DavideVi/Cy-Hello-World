@@ -118,6 +118,13 @@ resource "aws_apigatewayv2_stage" "hello_world_stage" {
   }
 }
 
+resource "aws_lambda_permission" "hello_world_lambda_permission" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.hello_world_lambda.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.hello_world_api.execution_arn}/*/*"
+}
+
 # Outputs ======================================================================
 
 output "api_url" {
