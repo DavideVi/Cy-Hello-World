@@ -28,6 +28,12 @@ Run the tests:
 ./cli t
 ```
 
+Provide the credentials and configuration:
+```bash
+cp .env.example .env
+vim .env # Or whatever editor you prefer
+```
+
 Deploy the Lambda:
 ```bash
 ./cli deploy
@@ -47,3 +53,4 @@ overkill in this case, I've just manually written the `requirements.txt` file.
 ## Terraform
 
 I used TfEnv to peg the version to 1.4.6 (latest version at the time of writing).
+

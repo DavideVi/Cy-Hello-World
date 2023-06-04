@@ -28,13 +28,10 @@ function deploy() {
     terraform --version | grep $TERRAFORM_VERSION > /dev/null || echo "Python $TERRAFORM_VERSION not found"
     cd ..
 
-    # Add function.py to a zip file
-    cd ./function
-    zip -r ../deploy/function.zip function.py
-    cd ..
-
-    # Deploy the function
     cd ./deploy
+
+    # Initialise terraform
+    # Vars come from .env which is sourced before the function is called
     terraform init \
         -backend-config="access_key=$AWS_ACCESS_KEY_ID" \
         -backend-config="secret_key=$AWS_SECRET_ACCESS_KEY" \
@@ -42,6 +39,15 @@ function deploy() {
         -backend-config="bucket=$S3_BUCKET" \
         -backend-config="dynamodb_table=$DYNAMODB_TABLE" \
         -backend-config="key=$STATE_KEY" 
+
+    # Deploy the function
+    AUTO_APPROVE=''
+    if [ -n "$CIRCLECI" ]; then
+        AUTO_APPROVE='-auto-approve'
+    fi
+
+    terraform apply $AUTO_APPROVE
+
     cd ..
 }
 
