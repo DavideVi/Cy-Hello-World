@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#
+# I would have used a Makefile, but the AWS CLI docker image does not come with
+# `make`, which defeats the purpose of incoveniencing ourselves with `make` 
+# instead of just plain old bash scripts
+# 
+
+function test() {
+    echo "Running tests..."
+}
+
+function deploy() {
+    echo "Deploying..."
+}
+
+# If first argument is not set, print help and exit
+if [ -z "$1" ]; then
+    echo "Usage: $0 [test|deploy]"
+    exit 1
+fi
+
+# If just initial, replace with full command
+if [ "$1" == "t" ]; then
+    set -- "test"
+elif [ "$1" == "d" ]; then
+    set -- "deploy"
+fi
+
+"$1"
